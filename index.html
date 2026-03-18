@@ -1476,11 +1476,15 @@ async function handleCreateNote() {
 
   if (S.selectedFile) {
     if (S.processChoice === 'claude') {
-      content = await processFileWithClaude(
-        S.selectedFile,
-        document.getElementById('claudeContext').value.trim(),
-        title
-      );
+      try {
+        content = await processFileWithClaude(
+          S.selectedFile,
+          document.getElementById('claudeContext').value.trim(),
+          title
+        );
+      } catch(e) {
+        return; // Claude failed — don't create empty note
+      }
     } else {
       content = await readFileAsText(S.selectedFile);
     }
@@ -1532,12 +1536,14 @@ async function handleCreateNote() {
 async function processFileWithClaude(file, context, title) {
   showLoading('Claude está procesando el archivo…');
   try {
+    if (!S.settings.anthropicKey) throw new Error('API key de Anthropic no configurada. Ve a ⚙ Configuración.');
+
     const base64 = await fileToBase64(file);
-    const mime = file.type;
-    const isImage = mime.startsWith('image/');
-    const isPDF = mime === 'application/pdf';
-    const isDocx = mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-    const isText = mime === 'text/plain' || mime === 'text/markdown' || file.name.endsWith('.md');
+    const mime = file.type || '';
+    const ext = file.name.split('.').pop().toLowerCase();
+    const isImage = mime.startsWith('image/') || ['jpg','jpeg','png','webp','heic'].includes(ext);
+    const isPDF = mime === 'application/pdf' || ext === 'pdf';
+    const isDocx = ext === 'docx';
 
     let msgContent = [];
     const prompt = `Eres un asistente que transforma apuntes y notas en documentos Markdown bien organizados.
@@ -1552,8 +1558,10 @@ Instrucciones:
 - Produce SOLO el contenido Markdown, sin explicaciones adicionales ni bloques de código envolventes`;
 
     if (isImage) {
+      const ext2 = file.name.split('.').pop().toLowerCase();
+      const imgMime = mime || (ext2 === 'png' ? 'image/png' : ext2 === 'webp' ? 'image/webp' : 'image/jpeg');
       msgContent = [
-        { type: 'image', source: { type: 'base64', media_type: mime, data: base64 } },
+        { type: 'image', source: { type: 'base64', media_type: imgMime, data: base64 } },
         { type: 'text', text: prompt }
       ];
     } else if (isPDF) {
@@ -1586,16 +1594,19 @@ Instrucciones:
       })
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || 'API error');
+      const errMsg = data?.error?.message || `Error HTTP ${res.status}`;
+      throw new Error(errMsg);
     }
 
-    const data = await res.json();
-    return data.content[0]?.text || '';
+    const result = data.content?.[0]?.text;
+    if (!result) throw new Error('Claude no devolvió contenido. Intenta de nuevo.');
+    return result;
   } catch(e) {
-    toast(`Error procesando archivo: ${e.message}`, 'error');
-    return '';
+    toast(`❌ ${e.message}`, 'error');
+    throw e;
   } finally {
     hideLoading();
   }
