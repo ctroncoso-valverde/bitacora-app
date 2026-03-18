@@ -972,6 +972,7 @@ body { display: flex; background: var(--main-bg); color: var(--text-primary); }
     </div>
     <div class="modal-footer">
       <button class="btn" data-close="modalSettings">Cancelar</button>
+      <button class="btn" id="btnTestApi">🔌 Probar conexión</button>
       <button class="btn primary" id="btnSaveSettings">Guardar configuración</button>
     </div>
   </div>
@@ -2161,6 +2162,37 @@ function bindEvents() {
   document.getElementById('btnExportPdf').onclick = exportPdf;
 
   // ── Settings modal ──
+  document.getElementById('btnTestApi').onclick = async () => {
+    const key = document.getElementById('cfgAnthropicKey').value.trim() || S.settings.anthropicKey;
+    if (!key) { toast('Ingresa la API key primero', 'error'); return; }
+    toast('Probando conexión…', '');
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': key,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 10,
+          messages: [{ role: 'user', content: 'Di solo: OK' }]
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error?.message || `HTTP ${res.status}`);
+      toast('✅ Conexión exitosa con Anthropic', 'success');
+    } catch(e) {
+      if (e.message === 'Failed to fetch') {
+        toast('❌ No se puede alcanzar api.anthropic.com — posible bloqueo de red o VPN', 'error');
+      } else {
+        toast(`❌ ${e.message}`, 'error');
+      }
+    }
+  };
+
   document.getElementById('btnSaveSettings').onclick = () => {
     S.settings.githubToken = document.getElementById('cfgGithubToken').value.trim();
     S.settings.githubOwner = document.getElementById('cfgGithubOwner').value.trim();
