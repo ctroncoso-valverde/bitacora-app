@@ -2,7 +2,7 @@
 
 **Fecha:** 06/01/26
 
-📌 **Aspectos general de la reunión**
+## 📌 **Aspectos general de la reunión**
 
 -   El objetivo de esta reunión fue determinar, a grosso modo, los objetivos de mi puesto como DAC FEN para el 2026.
 -   La reunión fue entre Vicerrectora VRAC y yo.
@@ -12,63 +12,30 @@
 -   Debo mostrar liderazgo.
 -   Vicerrectora me dice que debo ir al menos una vez por mes a Santiago para participar de consejo de facultad (mañana) y agendar la mayor cantidad de reuniones el resto del día.
 
-## 📌 Focos Principales de mi gestión este 2026
+## 📌 Focos Principales de mi gestión para §1este 2026
 
-### ① Primer Foco: Acreditación AACSB
+### ① Primer Foco: Acreditación AACSB (40% de peso)
 
--   **\+ importante:** AACSB (1° foco)
--   **20/01** → Reunión con Directivos
--   **70%-30%** → Evaluación mix
--   Importancia en Consejo de Facultad
--   Liderazgo a mi cargo
--   Avanzar hacia AMBA (de cómo)
+-   Esto es por lejos lo más relevante este año.
+-   Debo liderar el proceso y transmitir su importancia en Consejo de Facultad y en todas las instancias que pueda.
+-   Deberé participar en conferencia AACSB en abril en Seattle. Iré financiado por la VRAC.
+-   TODOS los procesos de acreditación son gestionados y liderados por la VRAC. Eso significa que DAC es quien lleva el proceso en acreditaciones de facultad.
 -   Hablar con Gabriele (VRAC) sobre postgrado
-
-**Miércoles todo el día:**
-
--   Mañana → Consejo
--   Tarde → Otros
-
-### 🎯 Meta: 10 nuevos PhDs
-
-### Conferencia AACSB en Abril
-
+-   Para la conferencia AACSB en Abril, los objetivos son:
 -   → Redes/Charlas
 -   → Búsqueda de gente que los pueda ayudar
+-   Para datos debo contactar a Análisis Institucional
 
-### Marzo → AMBA
+### ② Segundo Foco: Assessment (25% de peso)
 
--   → Comunicación directa de VRAC
+-   Las personas claves son Mª Francisca en pregrado y Gabriela en postgrado
 
-### 📊 Datos → Análisis Institucional
+### ③ Tercer Foco: Progresión (y logro) de Estudiantes (25% de peso)
 
--   **AACSB** → 40% evaluación
-
-### ② Segundo Foco: Assessment
-
--   Mª Francisca y Gabriela en postgrado
--   **Datos:**
--   Tassone
--   Email sobre Fernández
-
-### ③ Tercer Foco: Progresión de Estudiantes (y logro)
-
--   **Fernando Rojas**
--   **Juan** → Sistema info de FEN
--   Asignaturas críticas
--   **Objetivo** → Alertas/Seguimiento
+-   Aquí las personas claves son Fernando Rojas y Juan Díaz
+-   Importancia de reconocer y gestionar las asignaturas críticas
+-   **Objetivo?** → Alertas/Seguimiento
 
 ### ④ Cuarto Foco: MSCHE (10% evaluación)
 
--   Francisco es el hombre
--   **Felipe Rodríguez**
-
-## ✅ Resumen de Responsables
-
-## Foco Responsable(s) AACSB A mi cargo Assessment Mª Francisca, Gabriela Progresión estudiantes Fernando Rojas, Juan MSCHE Francisco, Felipe Rodríguez 📋 Tareas Pendientes
-
--   Hablar con Gabriele (VRAC) sobre postgrado
--   Reunión directivos 20/01
--   Enviar email sobre Fernández (Tassone)
--   Preparar Conferencia AACSB (Abril)
--   Coordinar comunicación AMBA con VRAC (Marzo)
+-   Francisco Aracena es quien se hará cargo de este tipo de acreditaciones (institucionales e internacionales)
