@@ -387,6 +387,7 @@ body { display: flex; background: var(--main-bg); color: var(--text-primary); }
   z-index: 100;
 }
 .tb-btn { position: relative; }
+.tb-color-btn { display: flex; flex-direction: column; align-items: center; padding: 3px 7px 2px; line-height: 1.1; }
 
 .tb-select {
   padding: 3px 6px;
@@ -1000,7 +1001,10 @@ body { display: flex; background: var(--main-bg); color: var(--text-primary); }
         <button class="tb-btn" data-fmt="italic" title="Cursiva"><i>I</i></button>
         <button class="tb-btn" data-fmt="underline" title="Subrayado"><u>U</u></button>
         <button class="tb-btn" data-fmt="strike" title="Tachado"><s>S</s></button>
-        <button class="tb-btn" data-fmt="background" data-val="#fef08a" title="Resaltado">▐H</button>
+        <button class="tb-btn tb-color-btn" id="btnFontColor" title="Color de fuente">A<span id="fontColorIndicator" style="display:block;height:3px;margin-top:1px;border-radius:1px;background:#dc2626"></span></button>
+        <input type="color" id="fontColorPicker" value="#dc2626" style="display:none">
+        <button class="tb-btn tb-color-btn" id="btnHighlightColor" title="Color de resaltado">▐H<span id="highlightColorIndicator" style="display:block;height:3px;margin-top:1px;border-radius:1px;background:#fef08a"></span></button>
+        <input type="color" id="highlightColorPicker" value="#fef08a" style="display:none">
       </div>
       <div class="tb-sep"></div>
       <div class="tb-group">
@@ -2515,7 +2519,9 @@ function bindEvents() {
   document.getElementById('btnInsertHr').onclick = () => {
     if (!quill) return;
     const range = quill.getSelection(true) || { index: quill.getLength() };
-    quill.insertText(range.index, '\n');
+    quill.insertText(range.index, '\n', Quill.sources.USER);
+    quill.clipboard.dangerouslyPasteHTML(range.index + 1, '<hr>');
+    quill.setSelection(range.index + 2, 0);
     quill.focus();
   };
 
@@ -2573,6 +2579,28 @@ function bindEvents() {
   document.getElementById('btnRedo').onclick = () => { if (quill) quill.history.redo(); };
 
   // ── New toolbar buttons ──
+
+  // Color pickers
+  document.getElementById('btnFontColor').onclick = () => {
+    document.getElementById('fontColorPicker').click();
+  };
+  document.getElementById('fontColorPicker').oninput = (e) => {
+    if (!quill) return;
+    quill.format('color', e.target.value);
+    document.getElementById('fontColorIndicator').style.background = e.target.value;
+    quill.focus();
+  };
+
+  document.getElementById('btnHighlightColor').onclick = () => {
+    document.getElementById('highlightColorPicker').click();
+  };
+  document.getElementById('highlightColorPicker').oninput = (e) => {
+    if (!quill) return;
+    quill.format('background', e.target.value);
+    document.getElementById('highlightColorIndicator').style.background = e.target.value;
+    quill.focus();
+  };
+
   document.getElementById('btnIndent').onclick = () => {
     if (!quill) return;
     const range = quill.getSelection(true);
